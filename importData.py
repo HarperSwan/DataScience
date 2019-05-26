@@ -30,9 +30,8 @@ data = pd.read_csv("spambase.data", names=['word_freq_make' ,'word_freq_address'
 data = data.sample(frac=1).reset_index(drop=True)
 
 
-
 #get var isSpam
-spamdata = data.pop('isSpam').values
+#spamdata = data.pop('isSpam').values
 
 #remove variable useless based on documentation :
 '''
