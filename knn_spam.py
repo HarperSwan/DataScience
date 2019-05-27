@@ -47,27 +47,25 @@ knn.fit(X_train, y_train)
 #show the accuracy of our model on the test data
 print(knn.score(X_test, y_test))
 
-#y_pred = knn.predict(X_test) 
-#print(knn.score(X_test, y_test))
+y_pred = knn.predict(X_test) 
+print(confusion_matrix(y_test, y_pred))  
+print(classification_report(y_test, y_pred))
 
+error = []
 
-# =============================================================================
-# error = []
-# 
-# # Calculating error for K values between 1 and 40
-# for i in range(1, 40):
-#    knn2 = KNeighborsClassifier(n_neighbors=i)
-#    knn2.fit(X_train, y_train)
-#    pred_i = knn2.predict(X_test)
-#    error.append(np.mean(pred_i != y_test))
-# 
-# plt.figure(figsize=(12, 6))
-# plt.plot(range(1, 40), error, color='red', linestyle='dashed', marker='o',
-#         markerfacecolor='blue', markersize=10)
-# plt.title('Error Rate K Value')
-# plt.xlabel('K Value')
-# plt.ylabel('Mean Error')
-# =============================================================================
+# Calculating error for K values between 1 and 40
+for i in range(1, 40):
+   knn2 = KNeighborsClassifier(n_neighbors=i)
+   knn2.fit(X_train, y_train)
+   pred_i = knn2.predict(X_test)
+   error.append(np.mean(pred_i != y_test))
+
+plt.figure(figsize=(12, 6))
+plt.plot(range(1, 40), error, color='red', linestyle='dashed', marker='o',
+        markerfacecolor='blue', markersize=10)
+plt.title('Error Rate K Value')
+plt.xlabel('K Value')
+plt.ylabel('Mean Error')
 
 # =============================================================================
 # #create a new KNN model

@@ -51,7 +51,7 @@ print(y_pred)  # 0 correspond to Versicolor, 1 to Verginica and 2 to Setosa
 print(confusion_matrix(y_test, y_pred))  
 print(classification_report(y_test, y_pred))
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
 error = []
 
 # Calculating error for K values between 1 and 40
