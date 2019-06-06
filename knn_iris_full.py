@@ -45,8 +45,11 @@ classifier = KNeighborsClassifier(n_neighbors=4)
 classifier.fit(X_train, y_train)
 
 y_pred = classifier.predict(X_test) 
+print("##############################")
+print(iris.feature_names)
+print("##############################")
 
-print(y_pred)  # 0 correspond to Versicolor, 1 to Verginica and 2 to Setosa
+#print(y_pred)  # 0 correspond to Versicolor, 1 to Verginica and 2 to Setosa
 
 print(confusion_matrix(y_test, y_pred))  
 print(classification_report(y_test, y_pred))
