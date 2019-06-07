@@ -61,21 +61,6 @@ def predictWith(algoName, X_train, X_test, y_train, y_test) :
         classifier = KNeighborsClassifier(n_neighbors=4)  #♪ with 4 neighboors closest
         classifier.fit(X_train, y_train) # X_train_scaled
         y_predict = classifier.predict(X_test) #X_test_scaled
-
-        A = neigh.kneighbors_graph(y_train)
-        A.toarray()
-        
-        error = []
-        """
-        # Calculating error for K values between 1 and 40
-        for i in range(1, 40):
-            knn = KNeighborsClassifier(n_neighbors=i)
-            knn.fit(X_train, y_train)
-            pred_i = knn.predict(X_test)
-            error.append(np.mean(pred_i != y_test))
-
-        import matplotlib.pyplot as plt
-        """
     
     if (errorOccured == False) :
         print(classification_report(y_test, y_predict))   
