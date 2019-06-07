@@ -6,30 +6,65 @@ from sklearn.svm import SVC
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.neural_network import MLPClassifier 
 
-spamdata = pd.read_csv("~/Desktop/spambase.data")  
-#spamdata = pd.read_csv("~/Downloads/bill_authentication.csv")  
+data = pd.read_csv("spambase.data", names=['word_freq_make' ,'word_freq_address'
+                ,'word_freq_all' ,'word_freq_3d' ,'word_freq_our'
+                ,'word_freq_over','word_freq_remove','word_freq_internet'
+                ,'word_freq_order','word_freq_mail','word_freq_receive'
+                ,'word_freq_will','word_freq_people','word_freq_report'
+                ,'word_freq_addresses','word_freq_free','word_freq_business'
+                ,'word_freq_email','word_freq_you','word_freq_credit'
+                ,'word_freq_your','word_freq_font','word_freq_000'
+                ,'word_freq_money','word_freq_hp','word_freq_hpl'
+                ,'word_freq_george','word_freq_650','word_freq_lab'
+                ,'word_freq_labs','word_freq_telnet' ,'word_freq_857'
+                ,'word_freq_data','word_freq_415','word_freq_85'
+                ,'word_freq_technology','word_freq_1999','word_freq_parts'
+                ,'word_freq_pm','word_freq_direct','word_freq_cs'
+                ,'word_freq_meeting','word_freq_original','word_freq_project'
+                ,'word_freq_re','word_freq_edu','word_freq_table'
+                ,'word_freq_conference'
+                ,'char_freq_;','char_freq_('
+                ,'char_freq_[','char_freq_!'
+                ,'char_freq_$','char_freq_#'
+                ,'capital_run_length_average'
+                ,'capital_run_length_longest'
+                ,'capital_run_length_total'
+                ,'isSpam'])
 
-print(spamdata.shape)
+# shuffle of data
+# https://stackoverflow.com/questions/29576430/shuffle-dataframe-rows
+data = data.sample(frac=1).reset_index(drop=True)
 
-print(spamdata.head())
+#get var isSpam
+# spamdata = data.pop('isSpam').values
 
-# X = spamdata.drop('class', axis=0)  
-# y = spamdata['class']  
+#remove variable useless based on documentation :
+'''
+Our collection of non-spam 
+e-mails came from filed work and personal e-mails, and hence
+the word 'george' and the area code '650' are indicators of 
+non-spam.
+'''
 
-csvValuesColumnNumber = 57
+data.pop('word_freq_650')
 
-# x = spamdata.drop('Class', axis=1)  
-# y = spamdata['Class']  
+data.pop('word_freq_george')
 
-x = spamdata.iloc[:, :-1].values 
-y = spamdata.iloc[:, csvValuesColumnNumber].values  
+# import some data
+x = data.drop(columns=['isSpam'])
+y = data['isSpam'].values
+features_train, features_test, labels_train, labels_test = train_test_split(x, y, test_size=0.2, random_state=1)
+target_names = ["non spam","spam"]
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.20)  
  
-classifier = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000)  # mlp -> classifier
+classifier = MLPClassifier(hidden_layer_sizes=(30, 30, 30), max_iter=1000)  # mlp -> classifier
 classifier.fit(x_train, y_train.ravel())  
 y_pred = classifier.predict(x_test)  
 
 print(confusion_matrix(y_test,y_pred))  
 print(classification_report(y_test,y_pred))  
 print("accuracy_score = %f" %(accuracy_score(y_test, y_pred)))
+
+
+
